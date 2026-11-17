@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#1A2C50"><link rel="manifest" href="manifest.json"><link rel="apple-touch-icon" href="icon-192.png"><meta name="apple-mobile-web-app-capable" content="yes"><title>Neta Diary</title>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Devanagari:wght@400;600;700&family=Noto+Sans:wght@400;600;700&display=swap" rel="stylesheet">
+<style>
+:root{--i:#1A2C50;--s:#E8660A;--g:#C8960C;--bg:#F4EFE6;--bd:#E0D8C8;--t:#556070}
+*{box-sizing:border-box;margin:0}
+body{font:14px/1.4 'Noto Sans','Noto Sans Devanagari',system-ui,sans-serif;background:var(--bg);color:var(--i);padding-bottom:calc(76px + env(safe-area-inset-bottom))}
+header{position:sticky;top:0;z-index:5;background:var(--i);color:#fff;padding:calc(12px + env(safe-area-inset-top)) 16px 10px;border-bottom:3px solid var(--g)}
+header h1{font-size:18px}header small{opacity:.65;font-size:11px;cursor:pointer}
+main{max-width:600px;margin:0 auto;padding:14px}
+nav{position:fixed;bottom:0;left:0;right:0;display:flex;background:var(--i);border-top:3px solid var(--g);padding-bottom:env(safe-area-inset-bottom);z-index:5}
+nav button{flex:1;background:none;border:0;color:#fff9;padding:8px 0;font-size:10px;font-weight:600}nav button.on{color:var(--s)}nav i{display:block;font-size:19px;font-style:normal}
+#fab{position:fixed;right:16px;bottom:calc(84px + env(safe-area-inset-bottom));width:54px;height:54px;border-radius:50%;background:var(--s);color:#fff;border:0;font-size:28px;z-index:6;box-shadow:0 4px 12px #0004}
+.card{background:#fff;border:1px solid var(--bd);border-radius:12px;padding:12px;margin-bottom:10px}
+.card h4{font-size:15px}.card p{margin-top:3px}.m{color:var(--t);font-size:12px}
+.dh{font-size:11px;font-weight:700;color:var(--t);text-transform:uppercase;margin:12px 0 6px}
+.em{text-align:center;color:var(--t);padding:40px 10px}
+.st{display:grid;grid-template-columns:repeat(4,1fr);gap:6px;margin-bottom:10px}
+.st div{background:#fff;border:1px solid var(--bd);border-radius:10px;padding:8px 4px;text-align:center;font-size:9px;color:var(--t);text-transform:uppercase}
+.st b{display:block;font-size:14px;color:var(--i);text-transform:none}
+.gr{color:#1B5E3B!important}.rd{color:#9E1C1C!important}
+.le{display:flex;justify-content:space-between;align-items:center;gap:8px}
+input,select,textarea{width:100%;padding:10px;border:1.5px solid var(--bd);border-radius:9px;font:inherit;background:#fff;color:var(--i)}
+input[type=checkbox]{width:auto;margin-right:6px}textarea{min-height:80px}
+label{display:block;font-size:11px;font-weight:700;color:var(--t);text-transform:uppercase;margin:10px 0 4px}
+label.ck{text-transform:none;font-size:13px;font-weight:400;margin:6px 0;color:var(--i)}
+.chips{display:flex;gap:6px;flex-wrap:wrap;margin:8px 0}.chips.sc{flex-wrap:nowrap;overflow-x:auto}
+.ch{padding:6px 12px;border:1.5px solid var(--bd);border-radius:16px;background:#fff;font-size:12px;font-weight:600;cursor:pointer;white-space:nowrap}
+.ch.on{background:var(--i);color:#fff;border-color:var(--i)}
+.b,.b2{display:inline-block;border:0;border-radius:10px;padding:11px 14px;font:inherit;font-weight:700;text-decoration:none;text-align:center;cursor:pointer}
+.b{background:var(--i);color:#fff}.b2{background:#fff;color:var(--i);border:1.5px solid var(--i)}.dg{background:#9E1C1C}
+.row{display:flex;gap:8px;flex-wrap:wrap;margin-top:12px}.row>*{flex:1}
+.th{display:flex;gap:6px;flex-wrap:wrap;margin-top:6px}
+.th img,.tm{width:64px;height:64px;border-radius:8px;object-fit:cover}
+.tm{position:relative;display:flex;align-items:center;justify-content:center;background:var(--bg);border:1px solid var(--bd);font-size:24px;overflow:hidden}
+.tm img{width:100%;height:100%}.tm u{position:absolute;top:0;right:0;background:#000a;color:#fff;font-size:10px;padding:1px 5px;text-decoration:none}
+#sh{position:fixed;inset:0;background:#0008;display:none;align-items:flex-end;justify-content:center;z-index:20}#sh.on{display:flex}
+.bx{background:#fff;width:100%;max-width:600px;max-height:92vh;overflow:auto;border-radius:18px 18px 0 0;padding:16px 16px calc(20px + env(safe-area-inset-bottom))}
+#lb{position:fixed;inset:0;background:#000d;display:none;align-items:center;justify-content:center;z-index:30}#lb.on{display:flex}
+#lb img,#lb video{max-width:94%;max-height:90%}
+#toast{position:fixed;left:50%;bottom:calc(140px + env(safe-area-inset-bottom));transform:translateX(-50%);background:var(--i);color:#fff;padding:9px 16px;border-radius:18px;font-size:12px;opacity:0;pointer-events:none;transition:.2s;z-index:40}#toast.on{opacity:1}
+details{margin-top:10px;font-size:12px}details ol{padding-left:18px;margin-top:6px}details li{margin:4px 0}
+#lk{position:fixed;inset:0;background:var(--i);display:none;flex-direction:column;align-items:center;justify-content:center;gap:14px;z-index:50;color:#fff}#lk.on{display:flex}#lk input{width:200px;text-align:center;font-size:22px;letter-spacing:8px}
+#fr{position:fixed;inset:0;background:var(--bg);display:none;overflow:auto;z-index:35;padding:16px}#fr.on{display:block}
+</style></head><body>
+<header><h1>Neta Diary</h1><small id="sy"></small></header>
+<main></main>
+<button id="fab">＋</button>
+<nav>
+<button data-v="diary"><i>📔</i>Diary</button><button data-v="people"><i>👥</i>People</button>
+<button data-v="led"><i>💰</i>Ledger</button><button data-v="reports"><i>📊</i>Reports</button><button data-v="set"><i>⚙️</i>Settings</button>
+</nav>
+<div id="sh"></div><div id="lb"></div><div id="toast"></div><div id="lk"></div><div id="fr"></div>
+<script>
+const $=(s,e=document)=>e.querySelector(s),$$=(s,e=document)=>[...e.querySelectorAll(s)];
+const esc=s=>String(s??'').replace(/[&<>"']/g,c=>'&#'+c.charCodeAt(0)+';');
+const uid=()=>Date.now().toString(36)+Math.random().toString(36).slice(2,5);
+const today=()=>new Date(Date.now()-new Date().getTimezoneOffset()*6e4).toISOString().slice(0,10);
+const inr=n=>'₹'+Number(n||0).toLocaleString('en-IN');
+const fd=d=>d?new Date(d+'T00:00').toLocaleDateString('en-IN',{weekday:'short',day:'numeric',month:'short',year:'numeric'}):'No date';
+const wa=n=>{n=String(n).replace(/\D/g,'');return n.length==10?'91'+n:n};
+const ICON={img:'🖼️',vid:'🎬',aud:'🎙️',doc:'📄'};
+const DEF=()=>({profile:{},cats:['Public Meeting','Inauguration','Grievance','Rally','Donation / Charity','Site Visit','Press / Media','Official Meeting','Other'],fields:[],inc:['Donation','Party Fund','Personal','Other'],exp:['Travel','Printing','Venue','Food','Publicity','Staff','Misc'],acts:[],people:[],led:[],gone:[],upd:0});
+let D={...DEF(),...JSON.parse(localStorage.nd||'{}')},CFG=JSON.parse(localStorage.ndc||'{}');
+const sv=()=>localStorage.ndc=JSON.stringify(CFG);
+let V='diary',Q='',CF='',st,tok,tx=0,tc,fid,dfid,wait,M=[];
+
+/* ---------- helpers ---------- */
+function toast(m){const t=$('#toast');t.textContent=m;t.classList.add('on');setTimeout(()=>t.classList.remove('on'),2400)}
+const setS=m=>$('#sy').textContent=m;
+function commit(){D.upd=Date.now();try{localStorage.nd=JSON.stringify(D)}catch(e){alert('Phone storage is full. Export a backup in Settings first.')}clearTimeout(st);st=setTimeout(push,2500);render()}
+function upsert(arr,o,id){if(id){const i=arr.findIndex(x=>x.id==id);arr[i]={...arr[i],...o}}else arr.unshift({id:uid(),...o});commit()}
+function del(k,id){if(!confirm('Delete this entry?'))return;D[k]=D[k].filter(x=>x.id!=id);D.gone.push(id);closeS();commit()}
+function dl(n,s,t){const a=document.createElement('a');a.href=URL.createObjectURL(new Blob([s],{type:t}));a.download=n;a.click()}
+const sheet=h=>{$('#sh').innerHTML='<div class=bx>'+h+'</div>';$('#sh').classList.add('on')};
+const closeS=()=>{$('#sh').classList.remove('on');$('#sh').innerHTML=''};
+$('#sh').onclick=e=>{if(e.target.id=='sh')closeS()};
+$('#lb').onclick=e=>{e.currentTarget.classList.remove('on');e.currentTarget.innerHTML=''};
+
+/* ---------- Google Drive ---------- */
+const G='https://www.googleapis.com/drive/v3/files',U='https://www.googleapis.com/upload/drive/v3/files';
+function initG(){if(!CFG.cid||!window.google||tc)return;tc=google.accounts.oauth2.initTokenClient({client_id:CFG.cid,scope:'https://www.googleapis.com/auth/drive.file',callback:r=>{const w=wait;wait=null;if(r.error){w&&w.no(r);toast('Google sign-in failed');return}tok=r.access_token;tx=Date.now()+r.expires_in*1000-6e4;CFG.signed=1;CFG.tok=tok;CFG.tx=tx;sv();w&&w.ok()}})}
+function auth(p=''){return new Promise((ok,no)=>{if(tok&&Date.now()<tx)return ok();if(!tc)return no();wait={ok,no};tc.requestAccessToken({prompt:p})})}
+async function api(u,o={}){await auth();const r=await fetch(u,{...o,headers:{Authorization:'Bearer '+tok,...(o.headers||{})}});if(!r.ok)throw new Error(r.status);return r}
+async function find(q){return(await(await api(G+'?fields=files(id)&q='+encodeURIComponent(q+' and trashed=false'))).json()).files[0]?.id}
+async function setup(){if(!dfid){dfid=await find("name='NetaDiary' and mimeType='application/vnd.google-apps.folder'");if(!dfid)dfid=(await(await api(G,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({name:'NetaDiary',mimeType:'application/vnd.google-apps.folder'})})).json()).id}if(!fid)fid=await find(`name='data.json' and '${dfid}' in parents`)}
+function multi(meta,blob){const f=new FormData();f.append('metadata',new Blob([JSON.stringify(meta)],{type:'application/json'}));f.append('file',blob);return f}
+async function bk(b){if(CFG.bk==today())return;try{const n='backup-'+new Date().getDate()+'.json',id=await find(`name='${n}' and '${dfid}' in parents`);if(id)await api(U+'/'+id+'?uploadType=media',{method:'PATCH',body:b});else await api(U+'?uploadType=multipart&fields=id',{method:'POST',body:multi({name:n,parents:[dfid]},b)});CFG.bk=today();sv()}catch(e){}}
+function merge(r){const g=[...new Set([...(D.gone||[]),...(r.gone||[])])],rn=(r.upd||0)>D.upd,o={...DEF(),...(rn?r:D),gone:g};for(const k of['acts','people','led']){const m=new Map();(rn?[...D[k],...(r[k]||[])]:[...(r[k]||[]),...D[k]]).forEach(x=>{if(!g.includes(x.id))m.set(x.id,x)});o[k]=[...m.values()]}return o}
+async function push(){if(!CFG.signed||!tc)return;try{setS('Syncing…');await setup();const b=new Blob([JSON.stringify(D)],{type:'application/json'});if(fid)await api(U+'/'+fid+'?uploadType=media',{method:'PATCH',body:b});else fid=(await(await api(U+'?uploadType=multipart&fields=id',{method:'POST',body:multi({name:'data.json',parents:[dfid]},b)})).json()).id;await bk(b);setS('Synced '+new Date().toLocaleTimeString([],{hour:'2-digit',minute:'2-digit'}))}catch(e){setS('Sync failed — tap to retry')}}
+async function pull(){try{setS('Syncing…');await setup();if(fid){const r=await(await api(G+'/'+fid+'?alt=media')).json();if((r.upd||0)!==D.upd){localStorage.nd_prev=JSON.stringify(D);D=merge(r);D.upd=Date.now();localStorage.nd=JSON.stringify(D);render()}}await push()}catch(e){setS('Sync failed — tap to retry')}}
+async function signIn(){try{await auth('select_account');await pull()}catch(e){toast('Could not connect to Google')}}
+function shrink(f){return new Promise(res=>{const i=new Image();i.onload=()=>{const c=m=>{const s=Math.min(1,m/Math.max(i.width,i.height)),k=document.createElement('canvas');k.width=i.width*s;k.height=i.height*s;k.getContext('2d').drawImage(i,0,0,k.width,k.height);return k};const b=c(120);c(1600).toBlob(bl=>res({b:bl,t:b.toDataURL('image/jpeg',.5)}),'image/jpeg',.82)};i.src=URL.createObjectURL(f)})}
+async function upMedia(f){await setup();let b=f,n=f.name,th,k=f.type.split('/')[0];if(k=='image'){const r=await shrink(f);b=r.b;th=r.t}const j=await(await api(U+'?uploadType=multipart&fields=id',{method:'POST',body:multi({name:Date.now()+'_'+n,parents:[dfid]},b)})).json();return{id:uid(),name:n,k:k=='image'?'img':k=='video'?'vid':k=='audio'?'aud':'doc',fid:j.id,th}}
+async function openM(m){try{toast('Loading…');const u=URL.createObjectURL(await(await api(G+'/'+m.fid+'?alt=media')).blob());if(m.k=='doc'){const a=document.createElement('a');a.href=u;a.download=m.name;a.click();return}$('#lb').innerHTML=m.k=='img'?`<img src="${u}">`:m.k=='vid'?`<video controls autoplay src="${u}"></video>`:`<audio controls autoplay src="${u}"></audio>`;$('#lb').classList.add('on')}catch(e){toast('Could not open file')}}
+
+/* ---------- generic form (schema driven) ---------- */
+function drawM(){const e=$('#fm');if(e)e.innerHTML=M.map((m,i)=>`<div class=tm>${m.th?`<img src="${m.th}">`:ICON[m.k]}<u data-i=${i}>✕</u></div>`).join('')}
+function form(title,fs,v,cb,onDel){
+M=[...(v.media||[])];let h=`<h3>${title}</h3>`;
+fs.forEach(f=>{const x=v[f.k]??f.d??'',id='f_'+f.k;h+=f.t=='media'?`<label>Attachments</label><div id=fm class=th></div><input type=file id=fl multiple hidden><button class=b2 id=am type=button style="width:100%;margin-top:8px">＋ Photo / video / audio / document</button>`:`<label>${f.l}</label>`+(f.t=='area'?`<textarea id=${id}>${esc(x)}</textarea>`:f.t=='sel'?`<select id=${id}>${f.o.map(o=>`<option${o==x?' selected':''}>${esc(o)}</option>`).join('')}</select>`:f.t=='tags'?`<div class=chips id=${id}>${D.people.map(p=>`<span class="ch${(x||[]).includes(p.id)?' on':''}" data-id=${p.id}>${esc(p.name)}</span>`).join('')||'<small>Add people in the People tab first.</small>'}</div>`:`<input id=${id} type=${f.t||'text'} value="${esc(x)}"${f.t=='number'?' inputmode=decimal':''}>`)});
+h+=`<div class=row><button class=b id=ok>Save</button>${onDel?'<button class="b dg" id=dl>Delete</button>':''}<button class=b2 id=cn>Cancel</button></div>`;
+sheet(h);drawM();
+$$('#sh .chips .ch').forEach(c=>c.onclick=()=>c.classList.toggle('on'));
+$('#cn').onclick=closeS;if(onDel)$('#dl').onclick=onDel;
+if($('#am')){$('#am').onclick=()=>$('#fl').click();$('#fm').onclick=e=>{const i=e.target.dataset.i;if(i!=null){M.splice(i,1);drawM()}};
+$('#fl').onchange=async e=>{if(!CFG.signed||!tc){toast('Connect Google Drive in Settings first');return}for(const f of e.target.files){toast('Uploading '+f.name);try{M.push(await upMedia(f));drawM()}catch(x){toast('Upload failed: '+f.name)}if(f.type.startsWith('image/')){try{toast('Looking for faces…');FACES.push(...await scan(f))}catch(x){toast('Face recognition could not start')}}}e.target.value='';if(FACES.length)review()}}
+$('#ok').onclick=()=>{const o={};for(const f of fs){if(f.t=='media')o.media=M;else if(f.t=='tags')o[f.k]=$$('#f_'+f.k+' .on').map(c=>c.dataset.id);else o[f.k]=$('#f_'+f.k).value.trim()}
+if(fs[0].r&&!o[fs[0].k]){toast('Please fill '+fs[0].l.replace(' *',''));return}if(cb(o)===false)return;closeS()}}
+
+/* ---------- schemas (edit these to change fields) ---------- */
+const actF=()=>[{k:'title',l:'Title *',r:1},{k:'cat',l:'Category',t:'sel',o:D.cats},{k:'date',l:'Date',t:'date',d:today()},{k:'time',l:'Time',t:'time'},{k:'loc',l:'Location'},{k:'att',l:'Attendees',t:'number'},{k:'desc',l:'Description',t:'area'},...D.fields.map((x,i)=>({k:'x'+i,l:x})),{k:'tags',l:'People present',t:'tags'},{t:'media'}];
+const perF=[{k:'name',l:'Name *',r:1},{k:'role',l:'Designation'},{k:'party',l:'Party / organisation'},{k:'phone',l:'Mobile number'},{k:'email',l:'Email',t:'email'},{k:'addr',l:'Address'},{k:'epic',l:'Election ID (EPIC) number'},{k:'fc',l:'Face recognition',t:'sel',o:['On','Off']},{k:'notes',l:'Notes',t:'area'}];
+const ledF=()=>[{k:'amt',l:'Amount (₹) *',t:'number',r:1},{k:'type',l:'Type',t:'sel',o:['Expense','Income']},{k:'cat',l:'Category',t:'sel',o:[...D.exp,...D.inc]},{k:'date',l:'Date',t:'date',d:today()},{k:'mode',l:'Payment mode',t:'sel',o:['Cash','UPI','Online','Cheque']},{k:'note',l:'Description'}];
+const saveLed=id=>o=>{if(!(+o.amt>0)){toast('Enter a valid amount');return false}upsert(D.led,{...o,amt:+o.amt},id)};
+
+/* ---------- views ---------- */
+function render(){$$('nav button').forEach(b=>b.classList.toggle('on',b.dataset.v==V));$('#fab').style.display=V=='reports'||V=='set'?'none':'';({diary:rDiary,people:rPeople,led:rLed,reports:rRep,set:rSet})[V]()}
+const sum=t=>D.led.filter(l=>l.type==t).reduce((s,l)=>s+l.amt,0);
+const pname=a=>(a.tags||[]).map(i=>D.people.find(x=>x.id==i)?.name).filter(Boolean);
+function rDiary(){const mo=today().slice(0,7);
+$('main').innerHTML=`<div class=st><div><b>${D.acts.length}</b>Total</div><div><b>${D.acts.filter(a=>(a.date||'').startsWith(mo)).length}</b>This month</div><div><b class=gr>${inr(sum('Income'))}</b>Income</div><div><b class=rd>${inr(sum('Expense'))}</b>Expense</div></div><input id=q placeholder="🔍 Search diary…" value="${esc(Q)}"><div class="chips sc" id=cf>${['',...D.cats].map(c=>`<span class="ch${CF==c?' on':''}" data-c="${esc(c)}">${esc(c||'All')}</span>`).join('')}</div><div id=lst></div>`;
+$('#q').oninput=e=>{Q=e.target.value.toLowerCase();fill()};$$('#cf .ch').forEach(c=>c.onclick=()=>{CF=c.dataset.c;rDiary()});fill()}
+function fill(){const l=D.acts.filter(a=>(!CF||a.cat==CF)&&(!Q||[a.title,a.desc,a.loc].join(' ').toLowerCase().includes(Q))).sort((a,b)=>((b.date||'')+(b.time||'')).localeCompare((a.date||'')+(a.time||'')));let h='',d='x';
+for(const a of l){if(a.date!=d){d=a.date;h+=`<div class=dh>${fd(d)}</div>`}const p=pname(a);h+=`<div class=card data-a=${a.id}><span class=m><b>${esc(a.cat)}</b>${a.time?' · '+a.time:''}</span><h4>${esc(a.title)}</h4><p class=m>${a.loc?'📍 '+esc(a.loc):''}${a.att?' · 👥 '+esc(a.att):''}</p>${a.desc?`<p>${esc(a.desc.slice(0,110))}${a.desc.length>110?'…':''}</p>`:''}<div class=th>${(a.media||[]).filter(m=>m.th).slice(0,4).map(m=>`<img src="${m.th}">`).join('')}</div>${p.length?`<p class=m>👤 ${esc(p.join(', '))}</p>`:''}</div>`}
+$('#lst').innerHTML=h||'<div class=em>No activities yet.<br>Tap ＋ to log your first one.</div>';$$('#lst .card').forEach(c=>c.onclick=()=>detail(c.dataset.a))}
+const txt=a=>`📋 *${a.title}*\n📅 ${a.date||''}${a.time?' '+a.time:''}${a.loc?'\n📍 '+a.loc:''}${a.att?'\n👥 '+a.att+' attended':''}\n\n${a.desc||''}${pname(a).length?'\n\n👤 '+pname(a).join(', '):''}\n\n— ${D.profile.name||''}${D.profile.party?' | '+D.profile.party:''}`;
+function detail(id){const a=D.acts.find(x=>x.id==id),T=encodeURIComponent(txt(a)),L=encodeURIComponent(location.href);
+sheet(`<h3>${esc(a.title)}</h3><p class=m>${fd(a.date)} ${a.time||''} · ${esc(a.cat)}</p>${a.loc?`<p>📍 ${esc(a.loc)}</p>`:''}${a.att?`<p>👥 ${esc(a.att)} attended</p>`:''}<p style="white-space:pre-wrap;margin:8px 0">${esc(a.desc)}</p>${D.fields.map((f,i)=>a['x'+i]?`<p><b>${esc(f)}:</b> ${esc(a['x'+i])}</p>`:'').join('')}${pname(a).length?`<p>👤 ${esc(pname(a).join(', '))}</p>`:''}<div class=th id=dm>${(a.media||[]).map((m,i)=>`<div class=tm data-i=${i}>${m.th?`<img src="${m.th}">`:ICON[m.k]}</div>`).join('')}</div>
+<label>Share</label><div class=row><a class=b2 target=_blank href="https://wa.me/?text=${T}">WhatsApp</a><a class=b2 target=_blank href="https://www.facebook.com/sharer/sharer.php?u=${L}&quote=${T}">Facebook</a><a class=b2 target=_blank href="https://twitter.com/intent/tweet?text=${T}">X</a><a class=b2 target=_blank href="https://t.me/share/url?url=${L}&text=${T}">Telegram</a><button class=b2 id=cp>Copy (Instagram / LinkedIn)</button></div>
+<div class=row><button class=b id=ed>Edit</button><button class=b2 id=cl>Close</button></div>`);
+$('#dm').onclick=e=>{const t=e.target.closest('.tm');if(t)openM(a.media[t.dataset.i])};$('#cl').onclick=closeS;
+$('#cp').onclick=()=>navigator.clipboard.writeText(txt(a).replace(/\*/g,'')).then(()=>toast('Caption copied'));
+$('#ed').onclick=()=>form('Edit activity',actF(),a,o=>upsert(D.acts,o,a.id),()=>del('acts',a.id))}
+let PS='';
+function rPeople(){const since=new Date(Date.now()-7.776e9).toISOString().slice(0,10),rec=D.acts.filter(a=>(a.date||'')>=since&&(a.tags||[]).length),
+L=D.people.map(p=>{const mine=D.acts.filter(a=>(a.tags||[]).includes(p.id)),n=mine.filter(a=>(a.date||'')>=since).length;return{p,all:mine.length,n,pct:rec.length?Math.round(100*n/rec.length):0,last:mine.map(a=>a.date||'').sort().pop()||''}});
+let l=PS=='never'?L.filter(x=>!x.all):PS=='low'?[...L].sort((a,b)=>a.pct-b.pct):PS=='top'?[...L].sort((a,b)=>b.pct-a.pct):L;
+$('main').innerHTML=`<div class="chips sc">${[['','All'],['top','Most regular'],['low','Least regular'],['never','Never attended']].map(([k,t])=>`<span class="ch${PS==k?' on':''}" data-s="${k}">${t}</span>`).join('')}</div>`+(l.map(({p,all,n,pct,last})=>`<div class=card data-p=${p.id}><h4>${esc(p.name)}</h4><p class=m>${esc([p.role,p.party].filter(Boolean).join(' · '))}</p><p><b class="${pct>=60?'gr':pct<30?'rd':''}">${pct}%</b> <span class=m>came to ${n} of ${rec.length} events (last 90 days) · ${all} in total · ${last?'last '+fd(last):'never attended'}</span></p>${p.phone?`<p><a href="tel:${esc(p.phone)}">📞 ${esc(p.phone)}</a> &nbsp; <a target=_blank href="https://wa.me/${wa(p.phone)}">💬 WhatsApp</a></p>`:''}</div>`).join('')||'<div class=em>No people yet.<br>Tap ＋ to add, or attach event photos to an activity and the app will find them.</div>');
+$$('.chips .ch').forEach(c=>c.onclick=()=>{PS=c.dataset.s;rPeople()});
+$$('.card').forEach(c=>c.onclick=e=>{if(e.target.tagName=='A')return;const p=D.people.find(x=>x.id==c.dataset.p);form('Edit person',perF,p,o=>{if(o.fc=='Off')o.face=[];upsert(D.people,o,p.id)},()=>del('people',p.id))})}
+function rLed(){const I=sum('Income'),E=sum('Expense');
+$('main').innerHTML=`<div class=st style="grid-template-columns:repeat(3,1fr)"><div><b class=gr>${inr(I)}</b>Income</div><div><b class=rd>${inr(E)}</b>Expense</div><div><b>${inr(I-E)}</b>Balance</div></div>`+([...D.led].sort((a,b)=>b.date.localeCompare(a.date)).map(l=>`<div class="card le" data-l=${l.id}><div><b>${esc(l.note||l.cat)}</b><p class=m>${l.date} · ${esc(l.cat)} · ${esc(l.mode)}</p></div><b class=${l.type=='Income'?'gr':'rd'}>${l.type=='Income'?'+':'−'}${inr(l.amt)}</b></div>`).join('')||'<div class=em>No entries yet.<br>Tap ＋ to add income or expense.</div>');
+$$('.le').forEach(c=>c.onclick=()=>{const l=D.led.find(x=>x.id==c.dataset.l);form('Edit entry',ledF(),l,saveLed(l.id),()=>del('led',l.id))})}
+
+/* ---------- reports (choose range, untick items, then print / CSV) ---------- */
+const rf=()=>D.acts.filter(a=>(!$('#rf').value||a.date>=$('#rf').value)&&(!$('#rt').value||a.date<=$('#rt').value)&&(!$('#rc').value||a.cat==$('#rc').value)).sort((a,b)=>(a.date||'').localeCompare(b.date||''));
+const repSel=()=>{const k=new Set($$('#rl input:checked').map(e=>e.dataset.id));return rf().filter(a=>k.has(a.id))};
+const pv=()=>$('#pv').textContent=repSel().length+' activities will be included';
+function pl(){$('#rl').innerHTML=rf().map(a=>`<label class=ck><input type=checkbox data-id=${a.id} checked>${a.date} — ${esc(a.title)}</label>`).join('')||'<small>No activities in this range.</small>';$$('#rl input').forEach(e=>e.onchange=pv);pv()}
+function rRep(){$('main').innerHTML=`<div class=card><label>From</label><input type=date id=rf value="${today().slice(0,7)}-01"><label>To</label><input type=date id=rt value="${today()}"><label>Category</label><select id=rc><option value="">All</option>${D.cats.map(c=>`<option>${esc(c)}</option>`).join('')}</select>
+<label class=ck><input type=checkbox id=rfin>Include financial summary</label><label class=ck><input type=checkbox id=rph checked>Include photo thumbnails</label>
+<label>Untick anything you want to leave out</label><div id=rl></div><p id=pv class=m style="margin-top:8px"></p><div class=row><button class=b id=pdf>Print / Save PDF</button><button class=b2 id=csv>Export CSV</button></div></div>`;
+['#rf','#rt','#rc'].forEach(s=>$(s).onchange=pl);pl();$('#pdf').onclick=pdf;$('#csv').onclick=csv}
+function pdf(){const a=repSel(),p=D.profile,f=$('#rf').value,t=$('#rt').value;
+let h=`<html><head><meta charset=utf-8><title>Activity Report</title><style>body{font:13px 'Noto Sans','Noto Sans Devanagari',Arial,sans-serif;color:#1A2C50;margin:24px}h1{margin:0}h2{border-bottom:2px solid #C8960C;padding-bottom:4px;margin-top:22px}.a{border:1px solid #ddd;border-radius:8px;padding:10px;margin:10px 0;page-break-inside:avoid}.a img{height:80px;margin:6px 4px 0 0;border-radius:4px}.m{color:#556070;font-size:12px}table{width:100%;border-collapse:collapse}td,th{border-bottom:1px solid #ddd;padding:5px;text-align:left}</style></head><body><h1>Activity Report</h1><b>${esc(p.name)}</b> ${esc([p.role,p.party,p.con].filter(Boolean).join(' · '))}<div class=m>${f} to ${t} · ${a.length} activities</div><h2>Activities</h2>`;
+a.forEach(x=>{h+=`<div class=a><b>${esc(x.title)}</b> <span class=m>— ${x.date} · ${esc(x.cat)}${x.loc?' · '+esc(x.loc):''}${x.att?' · '+esc(x.att)+' attended':''}</span><div style="white-space:pre-wrap">${esc(x.desc)}</div>${D.fields.map((fl,i)=>x['x'+i]?`<div class=m>${esc(fl)}: ${esc(x['x'+i])}</div>`:'').join('')}${pname(x).length?`<div class=m>People: ${esc(pname(x).join(', '))}</div>`:''}${$('#rph').checked?(x.media||[]).filter(m=>m.th).slice(0,4).map(m=>`<img src="${m.th}">`).join(''):''}</div>`});
+if($('#rfin').checked){const L=D.led.filter(l=>(!f||l.date>=f)&&(!t||l.date<=t)),I=L.filter(l=>l.type=='Income').reduce((s,l)=>s+l.amt,0),E=L.filter(l=>l.type=='Expense').reduce((s,l)=>s+l.amt,0);h+=`<h2>Financial summary</h2><p>Income ${inr(I)} · Expense ${inr(E)} · Balance ${inr(I-E)}</p><table><tr><th>Date<th>Type<th>Category<th>Note<th>Amount</tr>${L.map(l=>`<tr><td>${l.date}<td>${l.type}<td>${esc(l.cat)}<td>${esc(l.note)}<td>${inr(l.amt)}</tr>`).join('')}</table>`}
+const w=open('','_blank');if(!w){toast('Allow pop-ups to print');return}w.document.write(h+'</body></html>');w.document.close();setTimeout(()=>w.print(),600)}
+const q=s=>'"'+String(s??'').replace(/"/g,'""')+'"';
+function csv(){const r=[['Date','Time','Category','Title','Location','Attendees','Description',...D.fields].map(q).join(',')];repSel().forEach(x=>r.push([x.date,x.time,x.cat,x.title,x.loc,x.att,x.desc,...D.fields.map((_,i)=>x['x'+i])].map(q).join(',')));dl('activities.csv','\ufeff'+r.join('\n'),'text/csv')}
+
+/* ---------- settings ---------- */
+function rSet(){const p=D.profile,lines=a=>esc(a.join('\n'));
+$('main').innerHTML=`<div class=card><h4>Profile (used in reports and shares)</h4>${[['name','Name'],['role','Designation'],['party','Party'],['con','Constituency']].map(([k,l])=>`<label>${l}</label><input data-p=${k} value="${esc(p[k])}">`).join('')}</div>
+<div class=card><h4>Google Drive</h4><p class=m>Data and media are saved in a "NetaDiary" folder in your own Drive.</p><label>Google OAuth Client ID</label><input id=cid value="${esc(CFG.cid)}" placeholder="xxxx.apps.googleusercontent.com"><div class=row><button class=b id=cs>Save &amp; connect</button><button class=b2 id=sn>Sync now</button></div>
+<details><summary>How to get a Client ID (one time)</summary><ol><li>Open console.cloud.google.com and create a project.</li><li>APIs &amp; Services → Library → enable <b>Google Drive API</b>.</li><li>OAuth consent screen → External → fill app name and your email → under Test users add your own Gmail.</li><li>Credentials → Create credentials → OAuth client ID → Web application.</li><li>Authorized JavaScript origins: add <b>${esc(location.origin)}</b></li><li>Copy the Client ID and paste it above.</li></ol></details></div>
+<div class=card><h4>Customize</h4><label>Activity categories (one per line)</label><textarea id=cc>${lines(D.cats)}</textarea><label>Extra fields on every activity (one per line; add new ones at the end)</label><textarea id=cx>${lines(D.fields)}</textarea><label>Income categories</label><textarea id=ci>${lines(D.inc)}</textarea><label>Expense categories</label><textarea id=ce>${lines(D.exp)}</textarea><button class=b id=sc style="width:100%;margin-top:10px">Save customization</button></div>
+<div class=card><h4>Security</h4><p class=m>PIN locks the app on this device (re-asks after 5 min away). Your Drive data is protected by your Google account — turn on 2-Step Verification there.</p><div class=row><button class=b2 id=sp>Set / change PIN</button><button class=b2 id=rp>Remove PIN</button></div></div><div class=card><h4>Backup</h4><p class=m>Drive keeps 31 rolling daily backups automatically. Export a copy to your phone now and then too.</p><div class=row><button class=b2 id=ex>Export backup</button><button class=b2 id=lc>Ledger CSV</button><button class=b2 id=im>Import backup</button></div><input type=file id=imf hidden accept=.json></div>`;
+$$('[data-p]').forEach(e=>e.onchange=()=>{D.profile[e.dataset.p]=e.value.trim();commit();toast('Saved')});
+$('#cs').onclick=()=>{CFG.cid=$('#cid').value.trim();sv();tc=null;initG();signIn()};$('#sn').onclick=signIn;
+const ls=id=>$('#'+id).value.split('\n').map(s=>s.trim()).filter(Boolean);
+$('#sc').onclick=()=>{D.cats=ls('cc').length?ls('cc'):DEF().cats;D.fields=ls('cx');D.inc=ls('ci');D.exp=ls('ce');commit();toast('Saved')};
+$('#ex').onclick=()=>dl('netadiary-backup-'+today()+'.json',JSON.stringify(D),'application/json');
+$('#lc').onclick=()=>dl('ledger.csv','\ufeff'+[['Date','Type','Category','Amount','Mode','Description'].map(q).join(','),...D.led.map(l=>[l.date,l.type,l.cat,l.amt,l.mode,l.note].map(q).join(','))].join('\n'),'text/csv');
+$('#sp').onclick=async()=>{const p=prompt('New PIN (4-8 digits)');if(!/^\d{4,8}$/.test(p||'')){toast('PIN must be 4-8 digits');return}CFG.pin=await hash(p);sv();toast('PIN set')};$('#rp').onclick=()=>{if(CFG.pin&&confirm('Remove PIN lock?')){delete CFG.pin;sv();toast('PIN removed')}};
+$('#im').onclick=()=>$('#imf').click();$('#imf').onchange=e=>{const r=new FileReader();r.onload=()=>{try{D={...DEF(),...JSON.parse(r.result)};commit();toast('Backup imported')}catch(x){toast('Invalid backup file')}};r.readAsText(e.target.files[0])}}
+
+/* ---------- face recognition (runs on this phone; photos are not sent anywhere) ---------- */
+const FA='https://cdn.jsdelivr.net/npm/@vladmandic/face-api@1.7.15/',TH=.5;let faP,FACES=[];
+const dist=(a,b)=>Math.hypot(...a.map((v,i)=>v-b[i]));
+function loadFA(){return faP||(faP=new Promise((ok,no)=>{toast('Loading face recognition (first time only, about 12 MB)…');const s=document.createElement('script');s.src=FA+'dist/face-api.js';s.onload=async()=>{try{await Promise.all([faceapi.nets.ssdMobilenetv1,faceapi.nets.faceLandmark68Net,faceapi.nets.faceRecognitionNet].map(n=>n.loadFromUri(FA+'model/')));ok()}catch(e){faP=0;no(e)}};s.onerror=()=>{faP=0;no()};document.head.appendChild(s)}))}
+async function scan(f){await loadFA();const im=await faceapi.bufferToImage((await shrink(f)).b),r=await faceapi.detectAllFaces(im,new faceapi.SsdMobilenetv1Options({minConfidence:.5})).withFaceLandmarks().withFaceDescriptors();
+return r.map(x=>{const b=x.detection.box,c=document.createElement('canvas');c.width=c.height=96;c.getContext('2d').drawImage(im,Math.max(0,b.x-b.width*.2),Math.max(0,b.y-b.height*.2),b.width*1.4,b.height*1.4,0,0,96,96);return{d:Array.from(x.descriptor),img:c.toDataURL('image/jpeg',.7)}})}
+function match(d){let b=null,m=9;D.people.forEach(p=>(p.face||[]).forEach(f=>{const x=dist(d,f);if(x<m){m=x;b=p}}));return{p:b,m}}
+const lvl=r=>!r.p||r.m>=.55?0:r.m<(r.p.face.length>=2?.45:.35)?2:1;
+function learn(p,d){p.face=p.face||[];if(p.fc!='Off'&&p.face.length<8&&!p.face.some(x=>dist(x,d)<.2))p.face.push(d.map(v=>+v.toFixed(3)))}
+function addChip(id){const c=$('#f_tags');if(!c)return;let e=c.querySelector(`[data-id="${id}"]`);if(!e){c.querySelector('small')?.remove();e=document.createElement('span');e.className='ch';e.dataset.id=id;e.textContent=D.people.find(x=>x.id==id).name;e.onclick=()=>e.classList.toggle('on');c.appendChild(e)}e.classList.add('on')}
+function review(){const G=[];FACES.forEach(f=>{const g=G.find(x=>dist(x.d,f.d)<.45);g?g.n++:G.push({...f,n:1})});FACES=[];if(!G.length){toast('No faces found');return}
+const auto=new Set(),Q=[];G.forEach(g=>{g.r=match(g.d);if(lvl(g.r)==2){auto.add(g.r.p.id);learn(g.r.p,g.d)}else Q.push(g)});auto.forEach(addChip);
+if(!Q.length){commit();toast(auto.size+' attendee(s) recognised automatically');return}
+const nm=[...auto].map(i=>D.people.find(x=>x.id==i).name),opts=D.people.map(p=>`<option value=${p.id}>${esc(p.name)}</option>`).join('');
+$('#fr').innerHTML=`<h3>Please help with these faces</h3><p class=m>${auto.size?'✓ Recognised automatically: '+esc(nm.join(', '))+'. ':''}I am not sure about the faces below. Tell me who they are.</p>`+Q.map(g=>`<div class=card><div class=le style="gap:10px"><img src="${g.img}" width=72 height=72 style="border-radius:8px"><div style="flex:1"><select><option value="">Skip</option><option value=new>＋ New person…</option>${opts}</select><p class=m>${lvl(g.r)==1?'Is this '+esc(g.r.p.name)+'? Please confirm.':'Not recognised'}${g.n>1?' · in '+g.n+' photos':''}</p></div></div><div class=nf></div></div>`).join('')+`<div class=row><button class=b id=fok>Done</button><button class=b2 id=fno>Cancel</button></div>`;
+$$('#fr .card').forEach((c,i)=>{const sl=$('select',c),nf=$('.nf',c);if(lvl(Q[i].r)==1)sl.value=Q[i].r.p.id;
+sl.onchange=()=>{nf.innerHTML='';if(sl.value!='new')return;nf.innerHTML=`<label>Name *</label><input class=a_n><label>Mobile number</label><input class=a_p type=tel><label>Address</label><input class=a_a><label>Election ID (EPIC) number</label><input class=a_e><label>Email</label><input class=a_m type=email><label class=ck><input type=checkbox class=a_c checked>This person agrees to us keeping their details and recognising their face</label><button class=b type=button style="width:100%;margin-top:8px">Save person</button>`;
+$('button',nf).onclick=()=>{const n=$('.a_n',nf).value.trim();if(!n){toast('Enter a name');return}const id=uid(),p={id,name:n,phone:$('.a_p',nf).value.trim(),addr:$('.a_a',nf).value.trim(),epic:$('.a_e',nf).value.trim(),email:$('.a_m',nf).value.trim(),fc:$('.a_c',nf).checked?'On':'Off',face:[]};D.people.unshift(p);learn(p,Q[i].d);$$('#fr select').forEach(x=>x.insertAdjacentHTML('beforeend',`<option value=${id}>${esc(n)}</option>`));sl.value=id;nf.innerHTML=`<p class=gr>✓ ${esc(n)} saved</p>`}}});
+$('#fno').onclick=()=>{$('#fr').classList.remove('on');commit()};
+$('#fok').onclick=()=>{const v=$$('#fr select').map(x=>x.value);if(v.includes('new')){toast('Save the new person first, or choose Skip');return}const ids=new Set();v.forEach((x,i)=>{if(x){learn(D.people.find(q=>q.id==x),Q[i].d);ids.add(x)}});ids.forEach(addChip);$('#fr').classList.remove('on');commit();toast((ids.size+auto.size)+' attendee(s) added')};
+$('#fr').classList.add('on')}
+/* ---------- app lock ---------- */
+async function hash(s){return[...new Uint8Array(await crypto.subtle.digest('SHA-256',new TextEncoder().encode('nd'+s)))].map(b=>b.toString(16).padStart(2,'0')).join('')}
+function lock(){if(!CFG.pin)return;$('#lk').innerHTML='<h2>🔒 Neta Diary</h2><input id=lp type=password inputmode=numeric placeholder=PIN><button class=b id=lu>Unlock</button>';$('#lk').classList.add('on');$('#lu').onclick=async()=>{if(await hash($('#lp').value)==CFG.pin)$('#lk').classList.remove('on');else{toast('Wrong PIN');$('#lp').value=''}}}
+let hid=0;document.addEventListener('visibilitychange',()=>{if(document.hidden)hid=Date.now();else if(CFG.pin&&Date.now()-hid>3e5)lock()});
+/* ---------- start ---------- */
+$$('nav button').forEach(b=>b.onclick=()=>{V=b.dataset.v;render();scrollTo(0,0)});
+$('#fab').onclick=()=>({diary:()=>form('Log activity',actF(),{},o=>upsert(D.acts,o)),people:()=>form('Add person',perF,{},o=>upsert(D.people,o)),led:()=>form('Add entry',ledF(),{},saveLed())})[V]();
+$('#sy').onclick=()=>CFG.cid?signIn():(V='set',render());
+setS(CFG.cid?(CFG.signed?'Tap to sync with Drive':'Tap to connect Drive'):'Local only — tap to set up Drive');
+render();lock();
+if(CFG.tok&&CFG.tx>Date.now()){tok=CFG.tok;tx=CFG.tx}
+function boot(){if(tok&&Date.now()<tx)pull();else setS('Tap anywhere to reconnect')}
+let lt=0;addEventListener('click',()=>{if(CFG.signed&&tc&&!wait&&!(tok&&Date.now()<tx)&&Date.now()-lt>6e4){lt=Date.now();auth('').then(pull).catch(()=>setS('Tap here to reconnect'))}},true);
+if('serviceWorker' in navigator)navigator.serviceWorker.register('sw.js');
+</script>
+<script src="https://accounts.google.com/gsi/client" async defer onload="initG();if(CFG.signed)boot()"></script>
+</body></html>
